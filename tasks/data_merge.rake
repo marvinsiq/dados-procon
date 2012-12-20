@@ -40,10 +40,10 @@ namespace :data do
     data = []
     resources.each do |file|
       puts "Carregando arquivos de dados de '#{file}'"
-      data.concat(load_data_from_csv(file, columns))
-      write_file data, columns
+      data.concat(load_data_from_csv(file, columns))      
     end
     
+    write_file data, columns
     puts `rm -v tmp/*`
   end
   
@@ -66,7 +66,11 @@ namespace :data do
     csv.each do |row|
       row_data = []
       columns.each do |column|
-        row_data << row[column]
+        row_data << if row[column]
+          (row[column].match /[",]/) ? "\"#{row[column].gsub /"/, '""'}\"" : row[column]
+        else
+          nil
+        end
       end
 
       data << row_data
