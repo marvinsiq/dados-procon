@@ -6,6 +6,10 @@ class DadosProcon < Padrino::Application
     'HOME PAGE'
   end
   
+  get :sobre do
+    render :sobre
+  end
+  
   error 404 do
     redirect '/pagina-nao-encontrada'
   end
