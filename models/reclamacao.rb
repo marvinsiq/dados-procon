@@ -17,5 +17,6 @@ class Reclamacao
   field :sexo_consumidor, :type => String
   field :faixa_etaria_consumidor, :type => String
   field :cep_consumidor, :type => String
+  field :tags, :type => Array
   
 end
