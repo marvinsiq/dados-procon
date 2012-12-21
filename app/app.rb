@@ -6,8 +6,16 @@ class DadosProcon < Padrino::Application
     'HOME PAGE'
   end
   
+  get :contato do
+    render :contato
+  end
+  
+  get :mapa do
+    render :mapa
+  end
+  
   get :sobre do
-    render :sobre
+    render 'ajuda/sobre'
   end
   
   error 404 do
