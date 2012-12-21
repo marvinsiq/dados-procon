@@ -2,9 +2,81 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <%= stylesheet_link_tag 'bootstrap.min' %>
+  <%= stylesheet_link_tag 'bootstrap-responsive.min' %>
+  <%= stylesheet_link_tag 'application' %>
+  
+  <%= javascript_include_tag 'bootstrap.min' %>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+  
   <title>Consumidor online</title>
 </head>
 <body>
-  <%= yield %>
+  <div class="container">
+    <header>
+      <div class="page-header">
+        <nav id="menu-principal">
+          <ul class="nav nav-pills">
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Teste</a>
+                </li>
+              </ul>
+            </li>
+            
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Pesquisa<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Encontrar Pessoa Jurídica</a>
+                </li>
+                <li>
+                  <a href="#">Comparar Pessoas Jurídicas</a>
+                </li>
+              </ul>
+            </li>
+            
+            <li class="dropdown">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ajuda<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">Documentação</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<%= url(:sobre) %>">Sobre</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>    
+    
+    <%= yield %>
+    
+    <footer>
+      <div class="page-footer">
+        <nav id="menu-rodape">
+          <ul class="nav nav-pills">
+            <li>
+              <a href="https://github.com/aureliano/dados-procon">Projeto</a>
+            </li>
+            <li>
+              <a href="#">Licença</a>
+            </li>
+            <li>
+              <a href="http://dados.gov.br">Dados Abertos</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
+  
+  <! -- Carrega mais rápido se colocado no fim da página. Recomendação na documentação do bootstrap -->
+  <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 </body>
 </html>
