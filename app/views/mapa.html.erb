@@ -3,31 +3,33 @@
 <% @breadcrumbs = Array.new %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
 
-<h4>Mapa do sítio</h4>
+<h3>Mapa do sítio</h3>
 
 <div>
-  <%= link_to 'Início', url(:index) %>
-  <ul>
-    <li>
-      Indicadores
-      <ul>
-        <li><a href="#">Teste</a></li>
-      </ul>
-    </li>
-    <li>
-      Pesquisa
-      <ul>
-        <li><a href="#">Encontrar Pessoa Jurídica</a></li>
-        <li><a href="#">Comparar Pessoas Jurídicas</a></li>
-      </ul>
-    </li>
-    <li>
-      Ajuda
-      <ul>
-        <li><a href="#">Documentação</li>
-        <li><%= link_to 'Sobre', url(:sobre) %></li>
-      </ul>
-    </li>
-    <li><%= link_to 'Contato', url(:contato) %></li>
-  </ul>
+  <div class="body-unit">
+    <%= link_to 'Início', url(:index) %>
+    <ul>
+      <li>
+        Indicadores
+        <ul>
+          <li><a href="#">Teste</a></li>
+        </ul>
+      </li>
+      <li>
+        Pesquisa
+        <ul>
+          <li><a href="#">Encontrar Pessoa Jurídica</a></li>
+          <li><a href="#">Comparar Pessoas Jurídicas</a></li>
+        </ul>
+      </li>
+      <li>
+        Ajuda
+        <ul>
+          <li><a href="#">Documentação</li>
+          <li><%= link_to 'Sobre', url(:sobre) %></li>
+        </ul>
+      </li>
+      <li><%= link_to 'Contato', url(:contato) %></li>
+    </ul>
+  </div>
 <div>
