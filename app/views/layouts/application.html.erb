@@ -13,49 +13,51 @@
   <title>Consumidor online: <%= @page_title %></title>
 </head>
 <body>
-  <div class="nav-bar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">        
-        <nav id="menu-principal">
-          <ul class="nav nav-pills">
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Teste</a>
+   <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse collapse">
+            <nav id="menu-principal">
+              <ul class="nav nav-pills">
+                <li class="dropdown">
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">Indicadores<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#">Teste</a>
+                    </li>
+                  </ul>
+                </li>
+                
+                <li class="dropdown">
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">Pesquisa<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#">Encontrar Pessoa Jurídica</a>
+                    </li>
+                    <li>
+                      <a href="#">Comparar Pessoas Jurídicas</a>
+                    </li>
+                  </ul>
+                </li>
+                
+                <li class="dropdown">
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ajuda<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a href="#">Documentação</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <a href="<%= url(:sobre) %>">Sobre</a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </li>
-            
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Pesquisa<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Encontrar Pessoa Jurídica</a>
-                </li>
-                <li>
-                  <a href="#">Comparar Pessoas Jurídicas</a>
-                </li>
-              </ul>
-            </li>
-            
-            <li class="dropdown">
-              <a class="dropdown-toggle" href="#" data-toggle="dropdown">Ajuda<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#">Documentação</a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <a href="<%= url(:sobre) %>">Sobre</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </div>        
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
   <header class="jumbotron subhead">
     <div class="container">
@@ -85,7 +87,10 @@
               <a href="http://dados.gov.br">Dados Abertos</a>
             </li>
             <li>
-              <a href="<%= url :contato %>">Fale conosco</a>
+              <a href="http://portal.mj.gov.br">Ministério da Justiça</a>
+            </li>
+            <li>
+              <a href="<%= url :contato %>">Contato</a>
             </li>
           </ul>
         </nav>

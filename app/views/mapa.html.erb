@@ -5,31 +5,36 @@
 
 <h3>Mapa do sítio</h3>
 
-<div>
-  <div class="body-unit">
-    <%= link_to 'Início', url(:index) %>
-    <ul>
-      <li>
-        Indicadores
-        <ul>
-          <li><a href="#">Teste</a></li>
-        </ul>
-      </li>
-      <li>
-        Pesquisa
-        <ul>
-          <li><a href="#">Encontrar Pessoa Jurídica</a></li>
-          <li><a href="#">Comparar Pessoas Jurídicas</a></li>
-        </ul>
-      </li>
-      <li>
-        Ajuda
-        <ul>
-          <li><a href="#">Documentação</li>
-          <li><%= link_to 'Sobre', url(:sobre) %></li>
-        </ul>
-      </li>
-      <li><%= link_to 'Contato', url(:contato) %></li>
-    </ul>
-  </div>
-<div>
+<div class="body-unit">
+  <%= link_to 'Início', url(:index) %>
+  <ul>
+    <li>
+      Indicadores
+      <ul>
+        <li><a href="#">Teste</a></li>
+      </ul>
+    </li>
+    <li>
+      Pesquisa
+      <ul>
+        <li><a href="#">Encontrar Pessoa Jurídica</a></li>
+        <li><a href="#">Comparar Pessoas Jurídicas</a></li>
+      </ul>
+    </li>
+    <li>
+      Ajuda
+      <ul>
+        <li><a href="#">Documentação</li>
+        <li>
+          <%= link_to 'Sobre', url(:sobre) %>
+          <ul>
+            <li><%= link_to 'Missão', '/sobre#missao' %></li>
+            <li><%= link_to 'Reclamações Fundamentadas', '/sobre#reclamacoes_fundamentadas' %></li>
+            <li><%= link_to 'Dados', '/sobre#dados' %></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><%= link_to 'Contato', url(:contato) %></li>
+  </ul>
+</div>
