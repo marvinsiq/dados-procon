@@ -6,21 +6,28 @@
 <h4>Mapa do sítio</h4>
 
 <div>
-  Início
+  <%= link_to 'Início', url(:index) %>
   <ul>
-    <li>Indicadores</li>
+    <li>
+      Indicadores
       <ul>
-        <li>Teste</li>
+        <li><a href="#">Teste</a></li>
       </ul>
-    <li>Pesquisa</li>
+    </li>
+    <li>
+      Pesquisa
       <ul>
-        <li>Encontrar Pessoa Jurídica</li>
-        <li>Comparar Pessoas Jurídicas</li>
+        <li><a href="#">Encontrar Pessoa Jurídica</a></li>
+        <li><a href="#">Comparar Pessoas Jurídicas</a></li>
       </ul>
-    <li>Ajuda</li>
+    </li>
+    <li>
+      Ajuda
       <ul>
-        <li>Documentação</li>
-        <li>Sobre</li>
+        <li><a href="#">Documentação</li>
+        <li><%= link_to 'Sobre', url(:sobre) %></li>
       </ul>
+    </li>
+    <li><%= link_to 'Contato', url(:contato) %></li>
   </ul>
 <div>
