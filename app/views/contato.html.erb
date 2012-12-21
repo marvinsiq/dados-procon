@@ -1,4 +1,27 @@
-<% @page_title = 'Fale conosco' %>
+<% @page_title = 'Contato' %>
 
 <% @breadcrumbs = Array.new %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
+
+<h3>Fale conosco</h3>
+
+<div class="body-unit">
+  <form method="post" action="/send_email" accept-charset="UTF-8">
+    <div name="name">
+      <label for="name">Nome: </label><input type="text" id="name" name="name" value="" required/>
+    </div>
+    <div name="email">
+      <label for="email">e-mail: </label><input type="email" id="email" name="email" value="" required/>
+    </div>
+    <div name="subject">
+      <label for="subject">Assunto: </label><input type="text" id="subject" name="subject" value="" required/>
+    </div>
+    <div name="message">
+      <label for="message">Texto: </label><textarea id="message" name="message" required ></textarea>
+    </div>
+    <div id="action_buttons">
+      <input type="submit" value="Enviar" class="btn btn-primary"/>
+      <input type="reset" value="Apagar" class="btn btn-primary"/>
+    </div>
+  </form>
+</div>

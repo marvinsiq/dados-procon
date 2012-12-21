@@ -14,3 +14,22 @@
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
+
+label {
+  display: block;
+  width: 100px;
+  float: left;
+}
+
+input {
+  width: 300px;
+}
+
+textarea {
+  height: 250px;
+  width: 300px;
+}
+
+#action_buttons {
+  margin-left: 100px;
+}
