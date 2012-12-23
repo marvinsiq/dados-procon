@@ -5,19 +5,35 @@
 
 <h3>Fale conosco</h3>
 
+<% if @errors && @errors.size > 0 %>
+<div id="error_messages">
+  <ul>
+    <li>
+      <%= @errors.join '</li><li>' %>
+    </li>
+  </ul>
+</div>
+<% end %>
+
+<% if params[:msg_sent] %>
+<div id="success_message">
+  Mensagem enviada com sucesso!
+</div>
+<% end %>
+
 <div class="body-unit">
   <form method="post" action="/send_email" accept-charset="UTF-8">
     <div name="name">
-      <label for="name">Nome: </label><input type="text" id="name" name="name" value="" required/>
+      <label for="name">Nome: </label><input type="text" id="name" name="name" value="<%= params[:name] %>"/>
     </div>
     <div name="email">
-      <label for="email">e-mail: </label><input type="email" id="email" name="email" value="" required/>
+      <label for="email">e-mail: </label><input type="text" id="email" name="email" value="<%= params[:email] %>"/>
     </div>
     <div name="subject">
-      <label for="subject">Assunto: </label><input type="text" id="subject" name="subject" value="" required/>
+      <label for="subject">Assunto: </label><input type="text" id="subject" name="subject" value="<%= params[:subject] %>"/>
     </div>
     <div name="message">
-      <label for="message">Texto: </label><textarea id="message" name="message" required ></textarea>
+      <label for="message">Texto: </label><textarea id="message" name="message"><%= params[:message] %></textarea>
     </div>
     <div id="action_buttons">
       <input type="submit" value="Enviar" class="btn btn-primary"/>
