@@ -2,6 +2,11 @@ class DadosProcon < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  
+  # formatar divs de mensagens do layout contato
+  # formatar parágrafos do layout sobre
+  # criar popup para o link de cabeçalho 'copyright'
+  # testar envio de e-mail
 
   get :index do
     'HOME PAGE'
@@ -12,8 +17,11 @@ class DadosProcon < Padrino::Application
   end
   
   post '/send_email' do
-    send_email
-    redirect '/contato?msg_sent=true'
+    if send_email
+      redirect '/contato?msg_sent=true'
+    else
+      render :contato
+    end
   end
   
   get :mapa do
@@ -41,8 +49,5 @@ class DadosProcon < Padrino::Application
     :authentication       => :plain,
     :enable_starttls_auto => true
   }
-  
-  # Configure for not sending e-mail while testing
-  set :delivery_method, :test
 
 end

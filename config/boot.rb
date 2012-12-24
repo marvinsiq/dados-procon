@@ -6,6 +6,7 @@ STOPWORDS = File.read('stopwords').split "\n"
 # Load our dependencies
 require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
+require 'yaml'
 Bundler.require(:default, PADRINO_ENV)
 
 ##
@@ -15,6 +16,9 @@ Bundler.require(:default, PADRINO_ENV)
 # Padrino::Logger.log_static = true
 #
 
+# load project environment variables
+YAML.load_file('.env').each {|k, v| ENV[k] = v }
+  
 ##
 # Add your before load hooks here
 #

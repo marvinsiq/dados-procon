@@ -5,19 +5,19 @@
 
 <h3>Fale conosco</h3>
 
-<% if @errors && @errors.size > 0 %>
+<% if @message && !@message.valid? %>
 <div id="error_messages">
-  <ul>
-    <li>
-      <%= @errors.join '</li><li>' %>
-    </li>
-  </ul>
+  <p class="text-error">
+    <%= @message.errors.join '<br/>' %>
+  </p>
 </div>
 <% end %>
 
 <% if params[:msg_sent] %>
 <div id="success_message">
-  Mensagem enviada com sucesso!
+  <p class="text-success">
+    Mensagem enviada com sucesso!
+  </p>
 </div>
 <% end %>
 
