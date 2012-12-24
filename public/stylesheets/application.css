@@ -33,3 +33,8 @@ textarea {
 #action_buttons {
   margin-left: 100px;
 }
+
+.large-text {
+  text-align: justify;
+  text-indent: 20px;
+}

@@ -2,11 +2,6 @@ class DadosProcon < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
-  
-  # formatar divs de mensagens do layout contato
-  # formatar parágrafos do layout sobre
-  # criar popup para o link de cabeçalho 'copyright'
-  # testar envio de e-mail
 
   get :index do
     'HOME PAGE'
