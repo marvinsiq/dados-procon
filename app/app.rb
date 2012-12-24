@@ -4,7 +4,7 @@ class DadosProcon < Padrino::Application
   register Padrino::Helpers
 
   get :index do
-    'HOME PAGE'
+    render :index
   end
   
   get :contato do
