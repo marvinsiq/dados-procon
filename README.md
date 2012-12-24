@@ -34,3 +34,15 @@ Iniciar aplicação:
 padrino start
 ```
 Por favor, visite o site do [Padrino] (http://www.padrinorb.com) para obter mais instruções.
+
+Para enviar e-mails da aplicação é necessário definir três variáveis de ambiente, contendo respectivamente
+host do servidor SMTP, e-mail (sender) e senha. Você pode exportar variáveis de ambiente ou criar
+o arquivo ".env" na pasta raiz do projeto com as definições das variáveis (mais recomendado).
+Exemplo de arquivo ".env".
+```
+---
+EMAIL_SMTP_ADDRESS: smtp.mail.com
+EMAIL_USER_NAME: seu_email@teste.com
+EMAIL_PASSWORD: sua_senha
+```
+Obs.: Note que o arquivo está no formato YAML.
