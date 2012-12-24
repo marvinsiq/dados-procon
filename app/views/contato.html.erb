@@ -24,16 +24,16 @@
 <div class="body-unit">
   <form method="post" action="/send_email" accept-charset="UTF-8">
     <div name="name">
-      <label for="name">Nome: </label><input type="text" id="name" name="name" value="<%= params[:name] %>"/>
+      <label for="name">Nome: </label><input type="text" id="name" name="name" value="<%= params[:name] %>" required/>
     </div>
     <div name="email">
-      <label for="email">e-mail: </label><input type="text" id="email" name="email" value="<%= params[:email] %>"/>
+      <label for="email">e-mail: </label><input type="email" id="email" name="email" value="<%= params[:email] %>" required/>
     </div>
     <div name="subject">
-      <label for="subject">Assunto: </label><input type="text" id="subject" name="subject" value="<%= params[:subject] %>"/>
+      <label for="subject">Assunto: </label><input type="text" id="subject" name="subject" value="<%= params[:subject] %>" required/>
     </div>
     <div name="message">
-      <label for="message">Texto: </label><textarea id="message" name="message"><%= params[:message] %></textarea>
+      <label for="message">Texto: </label><textarea id="message" name="message" required><%= params[:message] %></textarea>
     </div>
     <div id="action_buttons">
       <input type="submit" value="Enviar" class="btn btn-primary"/>
