@@ -42,10 +42,11 @@ def replace_special_characters(text)
 end
 
 def get_tags_without_stopwords(text)
-  replace_special_characters text
+  txt = text.dup
+  replace_special_characters txt
   return text if text.nil?
   
-  tags = text.split(/[\s\/]/)
+  tags = txt.split(/[\s\/]/)
   tags.delete_if {|t| STOPWORDS.include? t }
 end
 
