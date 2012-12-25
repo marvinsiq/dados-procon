@@ -64,7 +64,10 @@ def create_tags(row)
   tags.concat tokens if tokens
   
   tokens = get_tags_without_stopwords(row['strNomeFantasia'])
-  tags.concat tokens if tokens
+  if tokens
+    tokens.delete_if {|t| tags.include? t }
+    tags.concat tokens
+  end
   
   cnpj = cnpj_zero_fill(row['NumeroCNPJ'])
   tags << cnpj if cnpj
