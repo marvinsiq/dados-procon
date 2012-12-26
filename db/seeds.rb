@@ -85,14 +85,28 @@ shell.say ''
 shell.say "Carregando reclamações fundamentadas do arquivo 'db/reclamacoes_fundamentadas_db.csv'"
 data = load_data_from_csv 'db/reclamacoes_fundamentadas_db.csv'
 
+empresas = []
 data.each do |row|
+  empresas << {
+    :razao_social => row['strRazaoSocial'], :nome_fantasia => row['strNomeFantasia'],
+     :cnpj => row['NumeroCNPJ'], :cnae_principal => row['DescCNAEPrincipal']
+  } unless empresas.include? row['strRazaoSocial']
+  
   Reclamacao.create(:ano_calendario => row['anocalendario'], :data_arquivamento => row['DataArquivamento'],
-                    :data_abertura => row['DataAbertura'], :regiao => row['regiao'], :uf => row['UF'],
-                    :razao_social => row['strRazaoSocial'], :nome_fantasia => row['strNomeFantasia'], :tipo => row['Tipo'],
-                    :cnpj => row['NumeroCNPJ'], :cnae_principal => row['DescCNAEPrincipal'], :atendida => row['Atendida'],
-                    :codigo_assunto => row['CodigoAssunto'], :descricao_assunto => row['DescricaoAssunto'],
-                    :sexo_consumidor => row['SexoConsumidor'], :faixa_etaria_consumidor => row['FaixaEtariaConsumidor'],
-                    :cep_consumidor => row['CEPConsumidor'], :tags => create_tags(row))
+                    :data_abertura => row['DataAbertura'], :uf => row['UF'],
+                    :tipo => row['Tipo'], :atendida => row['Atendida'],
+                    :codigo_assunto => row['CodigoAssunto'], :descricao_assunto => row['DescricaoAssunto'])
+end
+
+shell.say "Removendo (se existir) documentos da coleção 'pessoa_juridicas'"
+PessoaJuridica.delete_all
+shell.say ''
+
+shell.say "Carregando pessoas jurídicas"
+empresas.each do |e|
+  PessoaJuridica.create(:razao_social => e[:razao_social], :nome_fantasia => e[:nome_fantasia],
+                        :cnpj => e[:cnpj], :cnae_principal => e[:cnae_principal], 
+                        :tags => create_tags(row))
 end
 
 shell.say ''

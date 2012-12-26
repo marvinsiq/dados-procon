@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 PADRINO_ENV = 'test' unless defined?(PADRINO_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 
@@ -10,4 +12,17 @@ def app
   # You can handle all padrino applications using instead:
   #   Padrino.application
   DadosProcon.tap { |app|  }
+end
+
+def create_reclamacoes
+  Reclamacao.delete_all
+  Reclamacao.create :ano_calendario => 2009, :uf => 'MG', :razao_social => 'Supermercado Ibituruna', :cnpj => '55487963254120'
+  Reclamacao.create :ano_calendario => 2009, :uf => 'DF', :razao_social => 'Clínicas Barão', :cnpj => '55496635254120'
+  Reclamacao.create :ano_calendario => 2010, :uf => 'MG', :razao_social => 'Banco Cem por cento', :cnpj => '99866532321227'
+end
+
+def create_pessoas_juridicas
+  PessoaJuridica.delete_all
+  PessoaJuridica.create :razao_social => 'Supermercado Ibituruna', :cnpj => '55487963254120', :tags => ['supermercado', 'ibituruna', '55487963254120']
+  PessoaJuridica.create :razao_social => 'Banco Cem por cento', :cnpj => '99866532321227', :tags => ['banco', 'cem', 'cento', '99866532321227']
 end
