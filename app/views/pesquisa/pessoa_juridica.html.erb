@@ -1,0 +1,21 @@
+<% @page_title = 'Pesquisa por Pessoa Jurídica' %>
+
+<% @breadcrumbs = Array.new %>
+<%= partial :bread_crumb, :object => @breadcrumbs %>
+
+<h3>Pesquisa por Pessoa Jurídica</h3>
+
+<p class="text-info">
+  Para encontrar uma empresa você deve preencher a caixa de texto abaixo com parte do nome ou até mesmo o número do CNPJ.
+</p>
+
+<% @action_route = '/pesquisa/pessoajuridica' %>
+<%= partial :search_form, :object => @action_route %>
+
+<% if params['search_params'] && !params['search_params'].empty? %>
+  <div name="div_resultado_consulta">
+    <form method="get" name="form_search_result">
+      <%= search_data_list %>
+    </form>
+  </div>
+<% end %>

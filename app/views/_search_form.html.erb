@@ -1,0 +1,6 @@
+<% form_tag @action_route, :method => 'get', :id => 'form_consulta', :class => 'form-search' do %>
+  <div class="input-append">
+    <input type="text" class="search-query" id="search_params" name="search_params" value="<%= params[:search_params] %>" required autofocus>
+    <button type="submit" class="btn">Consultar</button>
+  </div>
+<% end %>
