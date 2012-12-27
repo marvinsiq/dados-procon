@@ -1,18 +1,18 @@
 # encoding: utf-8
 
 @characters = {
-  'á' => 'a',
-  'é' => 'e',
-  'í' => 'i',
-  'ó' => 'o',
-  'ú' => 'u',
-  'ã' => 'a',
-  'õ' => 'o',
-  'ê' => 'e',
-  'ô' => 'o',
-  'ü' => 'u',
-  'ç' => 'c',
-  'à' => 'a'
+  'á' => 'a', 'Á' => 'A',
+  'é' => 'e', 'É' => 'E',
+  'í' => 'i', 'Í' => 'I',
+  'ó' => 'o', 'Ó' => 'O',
+  'ú' => 'u', 'Ú' => 'U',
+  'ã' => 'a', 'Ã' => 'A',
+  'õ' => 'o', 'Õ' => 'O',
+  'ê' => 'e', 'Ê' => 'E',
+  'ô' => 'o', 'Ô' => 'O',
+  'ü' => 'u', 'Ü' => 'U',
+  'ç' => 'c', 'Ç' => 'C',
+  'à' => 'a', 'À' => 'A'
 }
 
 def load_data_from_csv(file)
@@ -36,17 +36,16 @@ end
 def replace_special_characters(text)
   return text if text.nil?
   
-  text.downcase!
-  @characters.each {|k, v| text.gsub! /k/, v }
-  text
+  txt = text.dup
+  @characters.each {|k, v| txt.gsub! /#{k}/, v }
+  txt
 end
 
 def get_tags_without_stopwords(text)
-  txt = text.dup
-  replace_special_characters txt
-  return text if text.nil?
+  txt = replace_special_characters text
+  return txt if txt.nil?
   
-  tags = txt.split(/[\s\/]/)
+  tags = txt.downcase.split(/[\s\/]/)
   tags.delete_if {|t| STOPWORDS.include? t }
 end
 
@@ -61,18 +60,22 @@ end
 
 def create_tags(row)
   tags = []
-  tokens = get_tags_without_stopwords(row['strRazaoSocial'])
+  tokens = get_tags_without_stopwords(row[:razao_social])
   tags.concat tokens if tokens
   
-  tokens = get_tags_without_stopwords(row['strNomeFantasia'])
+  tokens = get_tags_without_stopwords(row[:nome_fantasia])
   if tokens
     tokens.delete_if {|t| tags.include? t }
     tags.concat tokens
   end
   
-  cnpj = cnpj_zero_fill(row['NumeroCNPJ'])
-  tags << cnpj if cnpj
-  tags << format_cnpj(cnpj) if cnpj
+  row[:cnpjs].each do |cnpj|
+    c = cnpj_zero_fill(cnpj)
+    tags << c if c
+    tags << format_cnpj(c) if c
+  end
+  
+  tags
 end
 
 shell.say 'Populando base de dados do projeto'
@@ -85,17 +88,25 @@ shell.say ''
 shell.say "Carregando reclamações fundamentadas do arquivo 'db/reclamacoes_fundamentadas_db.csv'"
 data = load_data_from_csv 'db/reclamacoes_fundamentadas_db.csv'
 
-empresas = []
+empresas = {}
+count = 0
 data.each do |row|
-  empresas << {
-    :razao_social => row['strRazaoSocial'], :nome_fantasia => row['strNomeFantasia'],
-     :cnpj => row['NumeroCNPJ'], :cnae_principal => row['DescCNAEPrincipal']
-  } unless empresas.include? row['strRazaoSocial']
+  break if count >= 100
+  
+  if empresas[row['strRazaoSocial']]
+    empresas[replace_special_characters(row['strRazaoSocial'])] << {:cnpj => row['NumeroCNPJ']}
+  else
+    empresas[replace_special_characters(row['strRazaoSocial'])] = [{
+      :nome_fantasia => row['strNomeFantasia'],
+      :cnpj => row['NumeroCNPJ'], :cnae_principal => row['DescCNAEPrincipal']
+    }]
+  end  
   
   Reclamacao.create(:ano_calendario => row['anocalendario'], :data_arquivamento => row['DataArquivamento'],
                     :data_abertura => row['DataAbertura'], :uf => row['UF'],
                     :tipo => row['Tipo'], :atendida => row['Atendida'],
                     :codigo_assunto => row['CodigoAssunto'], :descricao_assunto => row['DescricaoAssunto'])
+  count += 1
 end
 
 shell.say "Removendo (se existir) documentos da coleção 'pessoa_juridicas'"
@@ -103,10 +114,13 @@ PessoaJuridica.delete_all
 shell.say ''
 
 shell.say "Carregando pessoas jurídicas"
-empresas.each do |e|
-  PessoaJuridica.create(:razao_social => e[:razao_social], :nome_fantasia => e[:nome_fantasia],
-                        :cnpj => e[:cnpj], :cnae_principal => e[:cnae_principal], 
-                        :tags => create_tags(row))
+empresas.each do |k, v|
+  cnpjs = []
+  v.each {|e| cnpjs << e[:cnpj] }
+  
+  PessoaJuridica.create(:razao_social => k, :nome_fantasia => v.first[:nome_fantasia],
+                        :cnpj => v.first[:cnpj], :cnae_principal => v.first[:cnae_principal], 
+                        :tags => create_tags(:razao_social => k, :nome_fantasia => v.first[:nome_fantasia], :cnpjs => cnpjs))
 end
 
 shell.say ''
