@@ -15,10 +15,12 @@ def app
 end
 
 def create_reclamacoes
+  create_pessoas_juridicas
   Reclamacao.delete_all
-  Reclamacao.create :ano_calendario => 2009, :uf => 'MG', :razao_social => 'Supermercado Ibituruna', :cnpj => '55487963254120'
-  Reclamacao.create :ano_calendario => 2009, :uf => 'DF', :razao_social => 'Clínicas Barão', :cnpj => '55496635254120'
-  Reclamacao.create :ano_calendario => 2010, :uf => 'MG', :razao_social => 'Banco Cem por cento', :cnpj => '99866532321227'
+  
+  Reclamacao.create :ano_calendario => 2009, :uf => 'MG', :razao_social => 'Supermercado Ibituruna', :pessoa_juridica => PessoaJuridica.where(:cnpj => '55487963254120').first
+  Reclamacao.create :ano_calendario => 2009, :uf => 'DF', :razao_social => 'Clínicas Barão', :pessoa_juridica => PessoaJuridica.where(:cnpj => '55487963254120').first
+  Reclamacao.create :ano_calendario => 2010, :uf => 'MG', :razao_social => 'Banco Cem por cento', :pessoa_juridica => PessoaJuridica.where(:cnpj => '99866532321227').first
 end
 
 def create_pessoas_juridicas
