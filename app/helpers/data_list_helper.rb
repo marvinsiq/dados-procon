@@ -12,10 +12,10 @@ DadosProcon.helpers do
     
     d = "#{data_page.total} item(s) encontrado(s).\n<hr/>"
         
-    data_page.data.each do |reclamacao|
+    data_page.data.each do |pessoa_juridica|
       d << "<div name=\"div_item_resultado_consulta\">"
-      d << "\n Razão Social: <a href=\"#\"> #{reclamacao.razao_social}</a><br/>"
-      d << "\n Nome Fantasia: #{nil_to_text reclamacao.nome_fantasia}"
+      d << "\n Razão Social: <a href=\"/pessoajuridica/#{pessoa_juridica.id}\"> #{pessoa_juridica.razao_social}</a><br/>"
+      d << "\n Nome Fantasia: #{nil_to_text pessoa_juridica.nome_fantasia}"
       d << "\n</div>"
       d << "\n<br/><br/>\n"
     end
