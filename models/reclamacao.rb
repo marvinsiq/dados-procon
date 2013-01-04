@@ -8,7 +8,7 @@ class Reclamacao
   field :data_abertura, :type => Date
   field :uf, :type => String
   field :tipo, :type => Integer
-  field :atendida, :type => Boolean
+  field :atendida, :type => String
   field :codigo_assunto, :type => Integer
   field :descricao_assunto, :type => String
 
