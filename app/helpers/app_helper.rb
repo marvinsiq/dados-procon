@@ -22,6 +22,7 @@ DadosProcon.helpers do
   end
   
   def format_cnpj(cnpj)
+    return '' if cnpj.nil? || cnpj == 'NULL'
     "#{cnpj[0, 2]}.#{cnpj[2, 3]}.#{cnpj[5, 3]}/#{cnpj[8, 4]}-#{cnpj[12, 2]}"
   end
   
