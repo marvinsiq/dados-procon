@@ -1,5 +1,10 @@
 <% @page_title = 'Pessoa Jurídica' %>
 
+<% @head_code = draw_pie_chart :width => 500, :height => 400,
+  :data => [
+    ['Ano', 'Reclamações'], ['2009', @ranking.reclamacoes_2009],
+    ['2010', @ranking.reclamacoes_2010], ['2011', @ranking.reclamacoes_2011]] %>
+
 <%= partial :bread_crumb, :object => @breadcrumbs %>
 
 <h3><%= pessoa_juridica_name @pessoa_juridica %></h3>
@@ -15,24 +20,28 @@
   <span><strong>CNPJ: </strong></span><span><%= format_cnpj @pessoa_juridica.cnpj %></span>
 </div>
 <div id="cnae">
-  <span><strong>CNAE: </strong></span><span><%= @pessoa_juridica.cnae_principal %></span>
+  <span><strong>CNAE: </strong></span><span><%= nil_to_text @pessoa_juridica.cnae_principal %></span>
 </div>
+
 <hr/>
+
 <h4>Ranking de reclamações</h4>
 <div id="posicao_geral">
-  <span><strong>Posição geral: </strong></span><span><%= '???' %></span>
+  <span><strong>Posição geral: </strong></span><span><%= format_position @ranking.posicao_geral %></span>
 </div>
 <div id="posicao_2011">
-  <span><strong>Posição em 2011: </strong></span><span><%= '???' %></span>
+  <span><strong>Posição em 2011: </strong></span><span><%= format_position @ranking.posicao_2011 %></span>
 </div>
 <div id="posicao_2010">
-  <span><strong>Posição em 2010: </strong></span><span><%= '???' %></span>
+  <span><strong>Posição em 2010: </strong></span><span><%= format_position @ranking.posicao_2010 %></span>
 </div>
 <div id="posicao_2009">
-  <span><strong>Posição em 2009: </strong></span><span><%= '???' %></span>
+  <span><strong>Posição em 2009: </strong></span><span><%= format_position @ranking.posicao_2009 %></span>
 </div>
+
 <hr/>
+
 <h4>Reclamações</h4>
-<div id="chart">
-  Aqui deveria ter um gráfico :(
+<div id="chart_div">
+  Não foi possível carregar o gráfico :(
 </div>
