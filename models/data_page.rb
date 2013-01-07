@@ -32,7 +32,7 @@ class DataPage
   end
   
   def has_page_index?(index)
-    ((@total >= index) && (index > 0))
+    ((@pages >= index) && (index > 0))
   end
   
   def next_page
