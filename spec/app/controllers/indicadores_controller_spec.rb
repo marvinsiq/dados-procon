@@ -1,11 +1,13 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe "IndicadoresController" do
-  before do
-    get "/"
+  
+  it "carrega página do ranking geral de reclamações" do
+    get '/indicadores/ranking'
+    last_response.body.should include '<title>Consumidor online: Ranking</title>'
+    last_response.body.should include '<h3>Ranking Geral de Reclamações</h3>'
   end
-
-  it "returns hello world" do
-    last_response.body.should == "Hello World"
-  end
+  
 end
