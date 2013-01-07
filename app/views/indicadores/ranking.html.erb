@@ -1,0 +1,20 @@
+<% @page_title = 'Ranking' %>
+
+<% @breadcrumbs = Array.new %>
+<%= partial :bread_crumb, :object => @breadcrumbs %>
+
+<h3>Ranking Geral de Reclamações</h3>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#" data-toggle="tab">Geral</a></li>
+    <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">2011</a></li>
+    <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">2010</a></li>
+    <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">2009</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_content">
+      <%= ranking_geral_data_table :data => @ranking, :total => @total %>
+    </div>
+  </div>
+</div>
