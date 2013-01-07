@@ -71,8 +71,10 @@ def create_tags(row)
   
   row[:cnpjs].each do |cnpj|
     c = cnpj_zero_fill(cnpj)
-    tags << c if c
-    tags << format_cnpj(c) if c
+    if c
+      tags << c
+      tags << format_cnpj(c)
+    end    
   end
   
   tags
@@ -89,24 +91,27 @@ shell.say "Carregando reclamações fundamentadas do arquivo 'db/reclamacoes_fun
 data = load_data_from_csv 'db/reclamacoes_fundamentadas_db.csv'
 
 empresas = {}
-count = 0
+#count = 0
+#year = 2009
 data.each do |row|
-  break if count >= 100
+  #if year < row['anocalendario'].to_i
+  #  year = row['anocalendario'].to_i
+  #  count = 0
+  #end
   
-  if empresas[row['strRazaoSocial']]
-    empresas[replace_special_characters(row['strRazaoSocial'])] << {:cnpj => row['NumeroCNPJ']}
+  #if count < 100  
+  razao_social = replace_special_characters(row['strRazaoSocial'])
+  if empresas[razao_social]
+    empresas[razao_social] << {:cnpj => row['NumeroCNPJ']}
   else
-    empresas[replace_special_characters(row['strRazaoSocial'])] = [{
-      :nome_fantasia => row['strNomeFantasia'],
-      :cnpj => row['NumeroCNPJ'], :cnae_principal => row['DescCNAEPrincipal']
+    empresas[razao_social] = [{
+      :nome_fantasia => row['strNomeFantasia'], :cnpj => row['NumeroCNPJ'],
+      :cnae_principal => row['DescCNAEPrincipal']
     }]
-  end  
+  end
+  #end
   
-  Reclamacao.create(:ano_calendario => row['anocalendario'], :data_arquivamento => row['DataArquivamento'],
-                    :data_abertura => row['DataAbertura'], :uf => row['UF'],
-                    :tipo => row['Tipo'], :atendida => row['Atendida'],
-                    :codigo_assunto => row['CodigoAssunto'], :descricao_assunto => row['DescricaoAssunto'])
-  count += 1
+  #count += 1
 end
 
 shell.say "Removendo (se existir) documentos da coleção 'pessoa_juridicas'"
@@ -115,13 +120,42 @@ shell.say ''
 
 shell.say "Carregando pessoas jurídicas"
 empresas.each do |k, v|
-  cnpjs = []
-  v.each {|e| cnpjs << e[:cnpj] }
+  cnpjs = v.map {|e| e[:cnpj] }
   
   PessoaJuridica.create(:razao_social => k, :nome_fantasia => v.first[:nome_fantasia],
-                        :cnpj => v.first[:cnpj], :cnae_principal => v.first[:cnae_principal], 
+                        :cnpj => cnpjs.join(','), :cnae_principal => v.first[:cnae_principal], 
                         :tags => create_tags(:razao_social => k, :nome_fantasia => v.first[:nome_fantasia], :cnpjs => cnpjs))
 end
+
+#count = 0
+#year = 2009
+data.each do |row|
+  #if year < row['anocalendario'].to_i
+  #  year = row['anocalendario'].to_i
+  #  count = 0
+  #end
+  
+  #if count < 100
+  pessoa_juridica = PessoaJuridica.where(:cnpj => row['NumeroCNPJ']).first
+  Reclamacao.create(:ano_calendario => row['anocalendario'], :data_arquivamento => row['DataArquivamento'],
+                    :data_abertura => row['DataAbertura'], :uf => row['UF'],
+                    :tipo => row['Tipo'], :atendida => row['Atendida'],
+                    :codigo_assunto => row['CodigoAssunto'], :descricao_assunto => row['DescricaoAssunto'],
+                    :pessoa_juridica => pessoa_juridica) if pessoa_juridica
+  #end
+  #count += 1
+end
+
+data = nil
+empresa = nil
+GC.start
+
+shell.say ''
+shell.say 'Criando ranking de reclamações'
+
+load('db/complaints_ranking.rb')
+
+shell.say 'Ranking de reclamações concluído'
 
 shell.say ''
 shell.say 'Povoamento da base de dados concluído'
