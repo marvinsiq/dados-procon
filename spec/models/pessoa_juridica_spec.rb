@@ -18,6 +18,7 @@ describe "Entidade PessoaJuridica" do
       @pj.should respond_to :cnae_principal
       @pj.should respond_to :cnpj
       @pj.should respond_to :reclamacaos
+      @pj.should respond_to :ranking
       @pj.should respond_to :tags
     end
     
@@ -28,6 +29,7 @@ describe "Entidade PessoaJuridica" do
       @pj.should respond_to 'cnae_principal='
       @pj.should respond_to 'cnpj='
       @pj.should respond_to 'reclamacaos='
+      @pj.should respond_to 'ranking='
       @pj.should respond_to 'tags='
     end
   end

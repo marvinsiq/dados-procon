@@ -2,6 +2,7 @@ class PessoaJuridica
   include Mongoid::Document
   
   has_many :reclamacaos
+  has_one :ranking
 
   field :razao_social, :type => String
   field :nome_fantasia, :type => String
