@@ -1,11 +1,13 @@
+# encoding: utf-8
+
 require 'spec_helper'
 
 describe "PessoaJuridicaController" do
-  before do
-    get "/"
-  end
 
-  it "returns hello world" do
-    last_response.body.should == "Hello World"
+  it "carrega página de perfil da pessoa jurídica" do
+    get "/pessoajuridica/#{PessoaJuridica.where(:cnpj => '99866532321227').first.id}"
+    last_response.body.should include '<title>Consumidor online: Pessoa Jurídica</title>'
+    last_response.body.should include '<h3>Banco Cem por cento</h3>'
   end
+  
 end
