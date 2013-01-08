@@ -5,7 +5,21 @@
     ['Ano', 'Reclamações'], ['2009', @ranking.reclamacoes_2009],
     ['2010', @ranking.reclamacoes_2010], ['2011', @ranking.reclamacoes_2011]] %>
 
-<%= partial :bread_crumb, :object => @breadcrumbs %>
+<script>
+  $(document).ready(function() {
+    if (sessionStorage != null) { // Checking for browser suport
+      document.getElementById('ul_breadcrumbs').innerHTML += '<li>' + sessionStorage.breadcrumb + '</li>';
+    }
+  });
+</script>
+
+<div id="breadcrumbs" name="breadcrumbs">
+  <ul id="ul_breadcrumbs" class="breadcrumb">
+    <li><a href="<%= url(:index) %>"><i class="icon-home"></i>Início</a>
+    <span class="divider"> &gt;&gt; </span>
+    
+  </ul>
+</div>
 
 <h3><%= pessoa_juridica_name @pessoa_juridica %></h3>
 

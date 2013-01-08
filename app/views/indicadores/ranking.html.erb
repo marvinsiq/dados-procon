@@ -1,4 +1,9 @@
 <% @page_title = 'Ranking' %>
+<% @head_code = %Q{
+  <script>
+    sessionStorage.breadcrumb = '#{link_to "Ranking geral", url(:indicadores, :ranking)}';
+  </script>
+} %>
 
 <% @breadcrumbs = Array.new %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
