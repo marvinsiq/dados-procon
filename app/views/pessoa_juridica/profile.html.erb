@@ -1,25 +1,7 @@
 <% @page_title = 'Pessoa Jurídica' %>
 
-<% @head_code = draw_pie_chart :width => 500, :height => 400,
-  :data => [
-    ['Ano', 'Reclamações'], ['2009', @ranking.reclamacoes_2009],
-    ['2010', @ranking.reclamacoes_2010], ['2011', @ranking.reclamacoes_2011]] %>
-
-<script>
-  $(document).ready(function() {
-    if (sessionStorage != null) { // Checking for browser suport
-      document.getElementById('ul_breadcrumbs').innerHTML += '<li>' + sessionStorage.breadcrumb + '</li>';
-    }
-  });
-</script>
-
-<div id="breadcrumbs" name="breadcrumbs">
-  <ul id="ul_breadcrumbs" class="breadcrumb">
-    <li><a href="<%= url(:index) %>"><i class="icon-home"></i>Início</a>
-    <span class="divider"> &gt;&gt; </span>
-    
-  </ul>
-</div>
+<% @breadcrumbs = nil %>
+<%= partial :bread_crumb, :object => @breadcrumbs %>
 
 <h3><%= pessoa_juridica_name @pessoa_juridica %></h3>
 
@@ -55,7 +37,4 @@
 
 <hr/>
 
-<h4>Reclamações</h4>
-<div id="chart_div">
-  Não foi possível carregar o gráfico :(
-</div>
+<%= link_to 'Detalhar Reclamações', url(:pessoa_juridica, :complaints, :id => @pessoa_juridica.id), :class => 'btn btn-primary' %>
