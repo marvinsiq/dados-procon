@@ -55,6 +55,11 @@ namespace :data do
     text = columns.join(';') + "\n"
     data.each {|line| text << line.join(';') + "\n" }
     
+    # remove useless data
+    text.gsub! /^;{2,}$/, ''
+    text.gsub! /^\(\d+\srow\(s\)\saffected\);*/, ''
+    text.gsub! /\n{3}/, "\n"
+    
     File.open(file, 'w') {|f| f.write text }
   end
   
