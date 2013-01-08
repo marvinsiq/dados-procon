@@ -28,3 +28,9 @@ def create_pessoas_juridicas
   PessoaJuridica.create :razao_social => 'Supermercado Ibituruna', :cnpj => '55487963254120', :tags => ['supermercado', 'ibituruna', '55487963254120']
   PessoaJuridica.create :razao_social => 'Banco Cem por cento', :cnpj => '99866532321227', :tags => ['banco', 'cem', 'cento', '99866532321227']
 end
+
+def create_ranking
+  Ranking.delete_all
+  Ranking.create :pessoa_juridica => PessoaJuridica.first, :posicao_geral => 1, :posicao_2009 => 3, :posicao_2010 => 2, :posicao_2011 => 1,
+                 :reclamacoes_total => 20, :reclamacoes_2009 => 5, :reclamacoes_2010 => 6, :reclamacoes_2011 => 11
+end
