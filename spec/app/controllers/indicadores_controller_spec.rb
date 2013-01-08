@@ -24,4 +24,10 @@ describe "IndicadoresController" do
     last_response.body.should include '<h3>Ranking de Reclamações no ano de 2010</h3>'
   end
   
+  it "carrega página do ranking de 2011" do
+    get '/indicadores/ranking/2011'
+    last_response.body.should include '<title>Consumidor online: Ranking 2011</title>'
+    last_response.body.should include '<h3>Ranking de Reclamações no ano de 2011</h3>'
+  end
+  
 end
