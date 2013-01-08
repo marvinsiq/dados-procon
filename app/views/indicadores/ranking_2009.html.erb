@@ -1,21 +1,21 @@
-<% @page_title = 'Ranking' %>
+<% @page_title = 'Ranking 2009' %>
 <% @head_code = %Q{
   <script>
-    sessionStorage.breadcrumb = '#{link_to "Ranking geral", url(:indicadores, :ranking)}';
+    sessionStorage.breadcrumb = '#{link_to "Ranking 2009", url(:indicadores, :ranking_by_year, :year => 2009)}';
   </script>
 } %>
 
 <% @breadcrumbs = Array.new %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
 
-<h3>Ranking Geral de Reclamações</h3>
+<h3>Ranking de Reclamações no ano de 2009</h3>
 
 <div class="tabbable">
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#" data-toggle="tab">Geral</a></li>
+    <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">Geral</a></li>
     <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">2011</a></li>
     <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">2010</a></li>
-    <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2009) %>" data-toggle="tab">2009</a></li>
+    <li class="active"><a href="#" data-toggle="tab">2009</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab_content">
