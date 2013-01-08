@@ -1,25 +1,25 @@
-<% @page_title = 'Ranking 2009' %>
+<% @page_title = 'Ranking 2010' %>
 <% @head_code = %Q{
   <script>
-    sessionStorage.breadcrumb = '#{link_to "Ranking 2009", url(:indicadores, :ranking_by_year, :year => 2009)}';
+    sessionStorage.breadcrumb = '#{link_to "Ranking 2010", url(:indicadores, :ranking_by_year, :year => 2010)}';
   </script>
 } %>
 
 <% @breadcrumbs = Array.new %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
 
-<h3>Ranking de Reclamações no ano de 2009</h3>
+<h3>Ranking de Reclamações no ano de 2010</h3>
 
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <li><a href="<%= url(:indicadores, :ranking) %>" data-toggle="tab">Geral</a></li>
     <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2011) %>" data-toggle="tab">2011</a></li>
-    <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2010) %>" data-toggle="tab">2010</a></li>
-    <li class="active"><a href="#" data-toggle="tab">2009</a></li>
+    <li class="active"><a href="#" data-toggle="tab">2010</a></li>
+    <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2009) %>" data-toggle="tab">2009</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab_content">
-      <%= ranking_data_table :data => @ranking, :total => @total, :year => 2009 %>
+      <%= ranking_data_table :data => @ranking, :total => @total, :year => 2010 %>
     </div>
   </div>
 </div>
