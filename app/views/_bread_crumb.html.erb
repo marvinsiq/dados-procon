@@ -13,8 +13,13 @@
           if (sessionStorage != null) { // Checking for browser suport
             var breadcrumbs = [];
             var i = 0;
+            var breadcrumbs_length = document.getElementById('breadcrumbs_length').value;
             
             while (true) {
+              if ((breadcrumbs_length - 1) == i) {
+                break;
+              }
+              
               var link = sessionStorage.getItem('breadcrumb_' + (i + 1));
               if (link == undefined) {
                 break;
