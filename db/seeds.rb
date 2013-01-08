@@ -158,4 +158,11 @@ load('db/complaints_ranking.rb')
 shell.say 'Ranking de reclamações concluído'
 
 shell.say ''
+shell.say 'Criando arquivo de dados com assuntos de reclamação'
+
+load('db/complaints_subject.rb')
+
+shell.say "Arquivo '.complaint_subjects.yml' criado"
+
+shell.say ''
 shell.say 'Povoamento da base de dados concluído'
