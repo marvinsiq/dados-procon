@@ -139,8 +139,8 @@ data.each do |row|
   pessoa_juridica = PessoaJuridica.where(:cnpj => row['NumeroCNPJ']).first
   Reclamacao.create(:ano_calendario => row['anocalendario'], :data_arquivamento => row['DataArquivamento'],
                     :data_abertura => row['DataAbertura'], :uf => row['UF'],
-                    :tipo => row['Tipo'], :atendida => row['Atendida'],
-                    :codigo_assunto => row['CodigoAssunto'], :descricao_assunto => row['DescricaoAssunto'],
+                    :atendida => row['Atendida'], :codigo_assunto => row['CodigoProblema'],
+                    :descricao_assunto => row['DescricaoProblema'],
                     :pessoa_juridica => pessoa_juridica) if pessoa_juridica
   #end
   #count += 1

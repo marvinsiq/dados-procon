@@ -14,10 +14,9 @@ describe "Entidade Reclamacao" do
       @reclamacao.should respond_to :data_arquivamento
       @reclamacao.should respond_to :data_abertura
       @reclamacao.should respond_to :uf
-      @reclamacao.should respond_to :tipo
       @reclamacao.should respond_to :atendida?
-      @reclamacao.should respond_to :codigo_assunto
-      @reclamacao.should respond_to :descricao_assunto
+      @reclamacao.should respond_to :codigo_problema
+      @reclamacao.should respond_to :descricao_problema
       @reclamacao.should respond_to :pessoa_juridica
     end
     
@@ -26,10 +25,9 @@ describe "Entidade Reclamacao" do
       @reclamacao.should respond_to 'data_arquivamento='
       @reclamacao.should respond_to 'data_abertura='
       @reclamacao.should respond_to 'uf='
-      @reclamacao.should respond_to 'tipo='
       @reclamacao.should respond_to 'atendida='
-      @reclamacao.should respond_to 'codigo_assunto='
-      @reclamacao.should respond_to 'descricao_assunto='
+      @reclamacao.should respond_to 'codigo_problema='
+      @reclamacao.should respond_to 'descricao_problema='
       @reclamacao.should respond_to 'pessoa_juridica='
     end
   end

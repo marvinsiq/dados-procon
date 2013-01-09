@@ -24,15 +24,11 @@ namespace :data do
     'UF',
     'strRazaoSocial',
     'strNomeFantasia',
-    'Tipo',
     'NumeroCNPJ',
     'DescCNAEPrincipal',
     'Atendida',
-    'CodigoAssunto',
-    'DescricaoAssunto',
-    'SexoConsumidor',
-    'FaixaEtariaConsumidor',
-    'CEPConsumidor'
+    'CodigoProblema',
+    'DescricaoProblema',
   ]
   
   desc 'Mescla todos osarquivos de dados (CSV) de uma entidade (após a execução os arquivos da pasta tmp são excluídos)'
@@ -72,7 +68,7 @@ namespace :data do
       row_data = []
       columns.each do |column|
         row_data << if row[column]
-          (row[column].match /[",]/) ? "\"#{row[column].gsub /"/, '""'}\"" : row[column]
+          (row[column].match /[";,]/) ? "\"#{row[column].gsub /"/, '""'}\"" : row[column]
         else
           nil
         end

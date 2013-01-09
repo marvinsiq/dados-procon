@@ -7,9 +7,8 @@ class Reclamacao
   field :data_arquivamento, :type => Date
   field :data_abertura, :type => Date
   field :uf, :type => String
-  field :tipo, :type => Integer
   field :atendida, :type => String
-  field :codigo_assunto, :type => Integer
-  field :descricao_assunto, :type => String
+  field :codigo_problema, :type => Integer
+  field :descricao_problema, :type => String
 
 end
