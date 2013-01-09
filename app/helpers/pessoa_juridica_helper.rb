@@ -22,22 +22,38 @@ DadosProcon.helpers do
     "#{position} &#186;"
   end
   
-  def create_chart_data(ranking)
-    case params[:chart_class]
-      when 'PieChart' then format_chart_data_by_year(ranking)
-      when nil then format_chart_data_by_year(ranking)
-      else nil
-    end
+  def complaints_by_year_chart_data(pessoa_juridica)
+    ranking = prepare_ranking pessoa_juridica
+    [
+      ['Ano', 'Reclamações'], # header
+      ['2009', ranking.reclamacoes_2009],
+      ['2010', ranking.reclamacoes_2010],
+      ['2011', ranking.reclamacoes_2011]
+    ]
   end
   
-  private
-    def format_chart_data_by_year(ranking)
-      [
-        ['Ano', 'Reclamações'], # header
-        ['2009', ranking.reclamacoes_2009],
-        ['2010', ranking.reclamacoes_2010],
-        ['2011', ranking.reclamacoes_2011]
-      ]
+  def complaints_by_conclusion_chart_data(pessoa_juridica)
+    data = {}
+    (2009..2011).each do |ano|
+      reclamacoes = Reclamacao.where(:pessoa_juridica_id => pessoa_juridica.id, :ano_calendario => ano).only(:atendida)
+      s = n = 0
+      
+      reclamacoes.each do |r|
+        if r.atendida == 'S'
+          s += 1
+        else
+          n += 1
+        end
+      end
+      data[ano] = {:atendidas => s, :nao_atendidas => n}
     end
+    
+    [
+      ['Ano', 'Reclamações atendidas', 'Reclamações não atendidas'],
+      ['2011', data[2011][:atendidas], data[2011][:nao_atendidas]],
+      ['2010', data[2010][:atendidas], data[2010][:nao_atendidas]],
+      ['2009', data[2009][:atendidas], data[2009][:nao_atendidas]]
+    ]
+  end
   
 end
