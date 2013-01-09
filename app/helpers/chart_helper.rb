@@ -1,26 +1,16 @@
 DadosProcon.helpers do
 
-  def draw_pie_chart(options)
-    options[:chart_class] = 'PieChart'
-    chart_template options
-  end
-  
-  def draw_line_chart(options)
-    options[:chart_class] = 'LineChart'
-    chart_template options
-  end
-  
-  def draw_bar_chart(options)
-    options[:chart_class] = 'BarChart'
-    chart_template options
+  def draw_chart(options)
+    options[:chart_container] ||= 'chart_div'
+    options[:width] ||= 400
+    options[:height] ||= 300
+    options[:chart_class] ||= 'PieChart'
+
+    chart_template(options)
   end
   
   private
     def chart_template(options)
-      options[:chart_container] ||= 'chart_div'
-      options[:width] ||= 400
-      options[:height] ||= 300
-      
       <<-eos
   <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
