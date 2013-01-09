@@ -1,0 +1,28 @@
+<% @page_title = 'Pessoa Jurídica - Reclamações' %>
+
+<% @head_code = draw_chart :width => 500, :height => 400, :data => @chart_data %>
+
+<% @head_code << %Q{
+  <script>
+    sessionStorage.breadcrumb_2 = '#{link_to "Pessoa Jurídica", url(:pessoa_juridica, :profile, :id => @pessoa_juridica.id)}';
+  </script>
+} %>
+
+<% @breadcrumbs = nil %>
+<%= partial :bread_crumb, :object => @breadcrumbs %>
+<input id="breadcrumbs_length" type="hidden" value="3"/>
+
+<h3><%= pessoa_juridica_name @pessoa_juridica %> - Reclamações</h3>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#" data-toggle="tab">Reclamações no período</a></li>
+    <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2011) %>" data-toggle="tab">Reclamações por problema</a></li>
+    <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2010) %>" data-toggle="tab">Reclamações atendidas/não atendidas</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="chart_div">
+      Não foi possível carregar o gráfico :(
+    </div>
+  </div>
+</div>

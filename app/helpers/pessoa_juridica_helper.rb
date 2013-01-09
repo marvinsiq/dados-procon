@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 DadosProcon.helpers do
 
   def pessoa_juridica_name(pessoa_juridica)
@@ -19,4 +21,23 @@ DadosProcon.helpers do
     return 'Sem ranking' if position.nil? || position == 0
     "#{position} &#186;"
   end
+  
+  def create_chart_data(ranking)
+    case params[:chart_class]
+      when 'PieChart' then format_chart_data_by_year(ranking)
+      when nil then format_chart_data_by_year(ranking)
+      else nil
+    end
+  end
+  
+  private
+    def format_chart_data_by_year(ranking)
+      [
+        ['Ano', 'Reclamações'], # header
+        ['2009', ranking.reclamacoes_2009],
+        ['2010', ranking.reclamacoes_2010],
+        ['2011', ranking.reclamacoes_2011]
+      ]
+    end
+  
 end
