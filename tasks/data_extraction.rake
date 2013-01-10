@@ -16,6 +16,8 @@ namespace :data do
   desc 'Baixa arquivos de dados no sítio do Ministério da Justiça'
   task :extraction do
     files = []
+    `mkdir tmp` unless File.exist? 'tmp'
+    
     resources.each do |k, v|
       puts "Carregando arquivo de dado de '#{v}'"
       file = "tmp/reclamacoes_fundamentadas_db_#{k}.zip"
