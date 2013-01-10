@@ -160,7 +160,7 @@ shell.say 'Ranking de reclamações concluído'
 shell.say ''
 shell.say 'Criando arquivo de dados com problemas referentes a reclamação'
 
-load('db/complaints_subject.rb')
+load('db/complaints_problems.rb')
 
 shell.say "Arquivo '.complaint_subjects.yml' criado"
 

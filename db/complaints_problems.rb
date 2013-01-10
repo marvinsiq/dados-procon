@@ -8,4 +8,4 @@ res.each do |codigo|
   data[codigo] = descricao
 end
 
-File.open('.complaint_subjects.yml', 'w') {|f| f.write data.to_yaml }
+File.open('.complaint_problems.yml', 'w') {|f| f.write data.to_yaml }
