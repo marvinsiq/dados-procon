@@ -2,15 +2,8 @@
 
 <% @head_code = @chart_empty ? '' : draw_chart(:width => 500, :height => 400, :data => @chart_data, :chart_class => 'PieChart') %>
 
-<% @head_code << %Q{
-  <script>
-    sessionStorage.breadcrumb_2 = '#{link_to "Pessoa Jurídica", url(:pessoa_juridica, :profile, :id => @pessoa_juridica.id)}';
-  </script>
-} %>
-
-<% @breadcrumbs = nil %>
+<% @breadcrumbs = Array.new [{:text => 'Pessoa Jurídica', :link => url(:pessoa_juridica, :profile, :id => @pessoa_juridica.id)}] %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
-<input id="breadcrumbs_length" type="hidden" value="3"/>
 
 <h3><%= pessoa_juridica_name @pessoa_juridica %> - Reclamações</h3>
 

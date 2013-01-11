@@ -1,39 +1,9 @@
 <div id="breadcrumbs" name="breadcrumbs">
   <ul id="ul_breadcrumbs" class="breadcrumb">
     <li><a href="<%= url(:index) %>"><i class="icon-home"></i>Início</a>
-    
-    <% if @breadcrumbs %>
-      <% @breadcrumbs.each do |breadcrumb| %>
-        <span> &gt;&gt; </span>
-        <li><%= link_to breadcrumb[:text], breadcrumb[:link] %></li>
-      <% end %>
-    <% else %>
-      <script>
-        $(document).ready(function() {
-          if (sessionStorage != null) { // Checking for browser support
-            var breadcrumbs = [];
-            var i = 0;
-            var breadcrumbs_length = document.getElementById('breadcrumbs_length').value;
-            
-            while (true) {
-              if ((breadcrumbs_length - 1) == i) {
-                break;
-              }
-              
-              var link = sessionStorage.getItem('breadcrumb_' + (i + 1));
-              if (link == undefined) {
-                break;
-              }
-              
-              ul_breadcrumbs = document.getElementById('ul_breadcrumbs');
-              ul_breadcrumbs.innerHTML += '<span> &gt;&gt; </span>'
-              ul_breadcrumbs.innerHTML += '<li>' + link + '</li>';
-              
-              i++;
-            }
-          }
-        });
-      </script>
+    <% @breadcrumbs.each do |breadcrumb| %>
+      <span class="divider">&gt;&gt;&nbsp;</span>
+      <li><%= link_to breadcrumb[:text], breadcrumb[:link] %></li>
     <% end %>
   </ul>
 </div>

@@ -1,9 +1,4 @@
 <% @page_title = 'Pesquisa por Pessoa Jurídica' %>
-<% @head_code = %Q{
-  <script>
-    sessionStorage.breadcrumb_1 = '#{link_to "Encontrar Pessoa Jurídica", url(:pesquisa, :pessoa_juridica)}';
-  </script>
-} %>
 
 <% @breadcrumbs = Array.new %>
 <%= partial :bread_crumb, :object => @breadcrumbs %>
