@@ -24,4 +24,14 @@ DadosProcon.controllers :pessoa_juridica do
     render 'pessoa_juridica/complaints_conclusion'
   end
   
+  get :complaints_problem_type, :map => '/pessoajuridica/:id/reclamacoes/problemas' do
+    @pessoa_juridica = PessoaJuridica.where('_id' => params[:id]).first
+    redirect '/404' unless @pessoa_juridica
+    compound = complaints_by_problems_chart_data @pessoa_juridica, params[:problema]
+    @chart_data = compound[:data]
+    @chart_empty = compound[:empty]
+  
+    render 'pessoa_juridica/complaints_problem_type'
+  end
+  
 end

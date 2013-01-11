@@ -18,10 +18,10 @@ describe "PessoaJuridicaController" do
   end
 
   it "carrega página de reclamações atendidas/não atendidas" do
-    get "/pessoajuridica/#{PessoaJuridica.where(:cnpj => '99866532321227').first.id}/reclamacoes/conclusao"
+    get "/pessoajuridica/#{PessoaJuridica.where(:cnpj => '99866532321227').first.id}/reclamacoes/problemas"
     last_response.body.should include '<title>Consumidor online: Pessoa Jurídica - Reclamações</title>'
     last_response.body.should include '<h3>Banco Cem por cento - Reclamações</h3>'
-    last_response.body.should include '<li class="active"><a href="#" data-toggle="tab">Reclamações atendidas/não atendidas</a></li>'
+    last_response.body.should include '<li class="active"><a href="#" data-toggle="tab">Reclamações por problema</a></li>'
   end
   
 end

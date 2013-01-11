@@ -56,4 +56,21 @@ DadosProcon.helpers do
     ]
   end
   
+  def complaints_by_problems_chart_data(pessoa_juridica, codigo_problema)
+    empty = true
+    data = {}
+    (2009..2011).each do |ano|
+      reclamacoes = Reclamacao.where(:pessoa_juridica_id => pessoa_juridica.id, :ano_calendario => ano, :codigo_problema => codigo_problema).only(:_id)
+      data[ano] = reclamacoes.size
+      empty = (reclamacoes.size == 0 && empty)
+    end
+    
+    {:data => [
+      ['Ano', 'Reclamações'],
+      ['2011', data[2011]],
+      ['2010', data[2010]],
+      ['2009', data[2009]]
+    ], :empty => empty}
+  end
+  
 end

@@ -17,7 +17,7 @@
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <li class="active"><a href="#" data-toggle="tab">Reclamações no período</a></li>
-    <li><a href="<%= url(:indicadores, :ranking_by_year, :year => 2011) %>" data-toggle="tab">Reclamações por problema</a></li>
+    <li><a href="<%= url(:pessoa_juridica, :complaints_problem_type, :id => @pessoa_juridica.id) %>" data-toggle="tab">Reclamações por problema</a></li>
     <li><a href="<%= url(:pessoa_juridica, :complaints_conclusion, :id => @pessoa_juridica.id) %>" data-toggle="tab">Reclamações atendidas/não atendidas</a></li>
   </ul>
   <div class="tab-content">

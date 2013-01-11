@@ -1,0 +1,47 @@
+<% @page_title = 'Pessoa Jurídica - Reclamações' %>
+
+<% @head_code = @chart_empty ? '' : draw_chart(:width => 500, :height => 400, :data => @chart_data, :chart_class => 'PieChart') %>
+
+<% @head_code << %Q{
+  <script>
+    sessionStorage.breadcrumb_2 = '#{link_to "Pessoa Jurídica", url(:pessoa_juridica, :profile, :id => @pessoa_juridica.id)}';
+  </script>
+} %>
+
+<% @breadcrumbs = nil %>
+<%= partial :bread_crumb, :object => @breadcrumbs %>
+<input id="breadcrumbs_length" type="hidden" value="3"/>
+
+<h3><%= pessoa_juridica_name @pessoa_juridica %> - Reclamações</h3>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li><a href="<%= url(:pessoa_juridica, :complaints, :id => @pessoa_juridica.id) %>" data-toggle="tab">Reclamações no período</a></li>
+    <li class="active"><a href="#" data-toggle="tab">Reclamações por problema</a></li>
+    <li><a href="<%= url(:pessoa_juridica, :complaints_conclusion, :id => @pessoa_juridica.id) %>" data-toggle="tab">Reclamações atendidas/não atendidas</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active">
+      <div id="search_div">
+        <form method="get" action="<%= url :pessoa_juridica, :complaints_problem_type, :id => @pessoa_juridica.id %>" accept-charset="UTF-8">
+          <div id="div_problem">
+            <label for="problema">Problemas: </label>
+            <%= select_tag :problema, :id => 'problems', :options => COMPLAINT_PROBLEMS.map {|k, v| [v, k] }, :autofocus => true, :selected => params[:problema] %>
+          </div>
+          <div id="action_buttons">
+            <input type="submit" value="Consultar" class="btn btn-primary"/>
+          </div>
+        </form>
+      </div>
+      <% if @chart_empty && params[:problema] %>
+        <script>$(document).ready(function() {
+            alert('Não há reclamações com o tipo do problema "<%= COMPLAINT_PROBLEMS[params[:problema].to_i] %>".');
+          });</script>
+      <% elsif @chart_empty == false %>
+        <div id="chart_div">
+          Não foi possível carregar o gráfico :(
+        </div>
+      <% end %>
+    </div>      
+  </div>
+</div>
