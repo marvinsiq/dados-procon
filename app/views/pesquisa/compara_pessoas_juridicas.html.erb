@@ -1,0 +1,89 @@
+<% @page_title = 'Comparar Pessoas Jurídicas' %>
+
+<% @head_code = %Q{
+  <script>
+    var ids = [];
+    
+    function savePessoaJuridicaOnSession(id, name) {
+      var pessoasJuridicas = sessionStorage.getItem('pessoasJuridicas');
+      if (pessoasJuridicas == undefined) {
+        pessoasJuridicas = ''
+      }
+      
+      if (pessoasJuridicas.indexOf(id + '-' + name) != -1) {
+        alert("Você já selecionou a Pessoa Jurídica '" + name + "'.");
+        return;
+      }
+      
+      if (pessoasJuridicas.length == 0) {
+        pessoasJuridicas = id + '-' + name;
+      } else {
+        pessoasJuridicas += '|' + id + '-' + name;
+      }
+      
+      sessionStorage.setItem('pessoasJuridicas', pessoasJuridicas);
+      writePessoaJuridicaList();
+    }
+    
+    function writePessoaJuridicaList() {
+      var list = '<ul>\\n';
+      var tokens = sessionStorage.pessoasJuridicas.split('|');
+      var div = document.getElementById('div_pessoas_juridicas');
+      div.innerHTML = '';
+      ids = [];
+
+      for (var i = 0; i < tokens.length; i++) {
+        ids[i] = tokens[i].substring(0, tokens[i].indexOf('-'));
+        list += '  <li>' + tokens[i].substring(tokens[i].indexOf('-') + 1) + '</li>\\n';
+      }
+      
+      list += '</ul>';
+      div.innerHTML += list;
+      
+      if (ids.length >= 2) {
+        div.innerHTML += '<a href="javascript:void(0)" class="btn btn-primary" onclick="compare(ids)">Comparar</a>';
+      }
+    }
+    
+    function compare(ids) {
+      sessionStorage.setItem('pessoasJuridicas', null);
+      location.href = '/pessoajuridica/comparacao/' + ids.join();
+    }
+  </script>
+} %>
+
+<% @breadcrumbs = Array.new %>
+<%= partial :bread_crumb, :object => @breadcrumbs %>
+
+<h3>Comparar Pessoas Jurídicas</h3>
+
+<h5>Empresas selecionadas</h5>
+<div id="div_pessoas_juridicas">
+  <script>
+    $(document).ready(function() {
+      var div = document.getElementById('div_pessoas_juridicas');
+      var pessoasJuridicas = sessionStorage.pessoasJuridicas;
+      
+      if (pessoasJuridicas == null || pessoasJuridicas == '') {
+        div.innerHTML += '<ul><li>Nenhuma empresa foi selecionada.</li></ul>';        
+      } else {
+        writePessoaJuridicaList();
+      }
+    });
+  </script>
+</div>
+
+<hr/>
+
+<p class="text-info">
+  Para encontrar uma empresa você deve preencher a caixa de texto abaixo com parte do nome ou até mesmo o número do CNPJ.
+</p>
+
+<% @action_route = '/pesquisa/compara/pessoajuridica' %>
+<%= partial :search_form, :object => @action_route %>
+
+<% if params['search_params'] && !params['search_params'].empty? %>
+  <div name="div_resultado_consulta">
+    <%= comparation_data_list %>
+  </div>
+<% end %>
