@@ -4,7 +4,7 @@ PADRINO_ENV  = ENV["PADRINO_ENV"] ||= ENV["RACK_ENV"] ||= "development"  unless 
 PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
 STOPWORDS = File.read('stopwords').split "\n"
 COMPLAINT_PROBLEMS = case PADRINO_ENV
-  when 'teste' then {1 => 'teste'}
+  when 'test' then {1 => 'teste'}
   else YAML.load_file('.complaint_problems.yml') if File.exists? '.complaint_problems.yml'
 end
 
