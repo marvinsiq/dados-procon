@@ -19,9 +19,9 @@ reduce = %Q{
 
 Ranking.delete_all
 res = Reclamacao.collection.map_reduce(map, reduce, :out => {:inline => 1}, :raw => true)
-docs = {}
+documents = {}
 res['results'].each do |k, v|
-  docs[k['_id']] = [{ :pessoa_juridica => k['_id'], :reclamacoes => k['value'] }]
+  documents[k['_id']] = [{ :pessoa_juridica => k['_id'], :reclamacoes => k['value'] }]
 end
 
 #### RANKING POR ANOS ####
@@ -35,17 +35,16 @@ map = %Q{
 res = Reclamacao.collection.map_reduce(map, reduce, :out => {:inline => 1}, :raw => true)
 res['results'].each do |k, v|
   pj = k['_id']['pessoa_juridica_id']
-  if docs[pj]
-    docs[pj] << { :ano_calendario => k['_id']['ano_calendario'], :reclamacoes => k['value'] }
+  if documents[pj]
+    documents[pj] << { :ano_calendario => k['_id']['ano_calendario'], :reclamacoes => k['value'] }
   else
-    docs[pj] = [{ :ano_calendario => k['_id']['ano_calendario'], :reclamacoes => k['value'] }]
+    documents[pj] = [{ :ano_calendario => k['_id']['ano_calendario'], :reclamacoes => k['value'] }]
   end  
 end
 
 rankings = []
-docs.each do |k, v|
-  r = Ranking.new
-  r.pessoa_juridica = PessoaJuridica.find(k)
+documents.each do |k, v|
+  r = Ranking.new :pessoa_juridica_id => k
   
   v.each do |data|
     if data[:ano_calendario]
@@ -85,6 +84,9 @@ end
 rankings.sort! {|x, y| y.reclamacoes_total <=> x.reclamacoes_total }
 pos = 0
 score = 0
+data = []
+count = 0
+
 rankings.each do |r|
   this_score = r.reclamacoes_total
   
@@ -94,10 +96,22 @@ rankings.each do |r|
   end
   
   r.posicao_geral = pos
-  r.save
+  
+  data << { :pessoa_juridica_id => r.pessoa_juridica_id, :reclamacoes_total => r.reclamacoes_total, :reclamacoes_2009 => r.reclamacoes_2009,
+            :reclamacoes_2010 => r.reclamacoes_2010, :reclamacoes_2011 => r.reclamacoes_2011, :posicao_geral => r.posicao_geral,
+            :posicao_2009 => r.posicao_2009, :posicao_2010 => r.posicao_2010, :posicao_2011 => r.posicao_2011 }
+
+  count += 1
+  if count == BUCKET_SIZE
+    Ranking.collection.insert data
+    data.clear
+    count = 0
+  end
 end
 
-docs = nil
+Ranking.collection.insert data # insere o resto
+
+documents = nil
 rankings = nil
 
 GC.start

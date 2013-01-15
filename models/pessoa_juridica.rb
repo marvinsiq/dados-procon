@@ -4,6 +4,7 @@ class PessoaJuridica
   has_many :reclamacaos
   has_one :ranking
 
+  field :_id, :type => Integer
   field :razao_social, :type => String
   field :nome_fantasia, :type => String
   field :cnpj, :type => String
